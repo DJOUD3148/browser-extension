@@ -8,6 +8,9 @@ const countryCodeToEmoji = (code) => {
 
 	const upper = code.toUpperCase();
 
+	if (upper === "RB") return "\u{1F4AB}";
+	if (upper === "UK") return countryCodeToEmoji("GB");
+
 	return String.fromCodePoint(
 		...Array.from(upper).map((c) => 0x1f1e6 + c.charCodeAt(0) - 65),
 	);
