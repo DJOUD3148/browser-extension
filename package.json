@@ -1,0 +1,61 @@
+{
+	"name": "stealthsurf-extension",
+	"version": "1.0.0",
+	"description": "StealthSurf browser extension — HTTP proxy for Chrome and Firefox. Use your proxies, split tunneling, and more without installing VPN.",
+	"author": {
+		"name": "StealthSurf VPN",
+		"email": "admin@stealthsurf.app",
+		"url": "https://stealthsurf.app"
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/stealthsurf-vpn/browser-extension.git"
+	},
+	"homepage": "https://stealthsurf.app",
+	"bugs": {
+		"url": "https://github.com/stealthsurf-vpn/browser-extension/issues"
+	},
+	"keywords": [
+		"browser-extension",
+		"proxy",
+		"vpn",
+		"chrome-extension",
+		"firefox-addon",
+		"split-tunneling",
+		"stealthsurf"
+	],
+	"engines": {
+		"node": ">=18.0.0"
+	},
+	"scripts": {
+		"dev:chrome": "VITE_TARGET=chrome vite build --watch",
+		"dev:firefox": "VITE_TARGET=firefox vite build --watch",
+		"build:chrome": "VITE_TARGET=chrome vite build && cp manifest/manifest.chrome.json dist/chrome/manifest.json && cp -r src/assets/icons dist/chrome/ && cp src/callback/callback.html dist/chrome/",
+		"build:firefox": "VITE_TARGET=firefox vite build && cp manifest/manifest.firefox.json dist/firefox/manifest.json && cp -r src/assets/icons dist/firefox/ && cp src/callback/callback.html dist/firefox/",
+		"build:all": "npm run build:chrome && npm run build:firefox",
+		"format": "biome format --write .",
+		"lint": "biome lint .",
+		"pack:zip": "node scripts/pack.mjs zip",
+		"pack:crx": "node scripts/pack.mjs crx",
+		"pack:all": "node scripts/pack.mjs all",
+		"release": "npm run build:all && npm run pack:all",
+		"pack:xpi": "node scripts/pack.mjs xpi"
+	},
+	"dependencies": {
+		"@vkontakte/icons": "^2.170.0",
+		"@vkontakte/vkui": "^6.7.4",
+		"axios": "^1.10.0",
+		"notistack": "^3.0.2",
+		"react": "^18.3.1",
+		"react-dom": "^18.3.1",
+		"recoil": "^0.7.7"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "^1.9.4",
+		"@vitejs/plugin-react-swc": "^3.10.2",
+		"crx3": "^2.0.0",
+		"sass": "^1.89.2",
+		"vite": "^6.4.1"
+	}
+}

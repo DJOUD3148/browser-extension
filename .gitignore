@@ -1,0 +1,16 @@
+node_modules/
+dist/
+
+# Private key for CRX signing
+key.pem
+
+# Release artifacts
+release/
+
+# Environment files
+.env
+.env.development
+.env.production
+
+.idea
+.DS_Store

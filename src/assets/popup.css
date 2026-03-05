@@ -1,0 +1,764 @@
+html,
+body {
+	width: 380px;
+	min-width: 380px;
+	min-height: 520px;
+	max-height: 600px;
+	margin: 0;
+	overflow-y: auto;
+	user-select: none;
+	-webkit-user-select: none;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+/* iOS-style VK UI overrides */
+.vkuiCard {
+	border-radius: 14px !important;
+	overflow: hidden;
+}
+
+.vkuiSimpleCell {
+	border-radius: 0 !important;
+}
+
+.vkuiButton--size-l {
+	border-radius: 12px !important;
+}
+
+.vkuiButton--size-m {
+	border-radius: 10px !important;
+}
+
+.vkuiPlaceholder {
+	animation: ext-fade-in 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* Animations */
+@keyframes ext-fade-in {
+	from {
+		opacity: 0;
+		transform: translateY(8px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes ext-scale-in {
+	from {
+		opacity: 0;
+		transform: scale(0.92);
+	}
+	to {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
+
+@keyframes ext-slide-up {
+	from {
+		opacity: 0;
+		transform: translateY(16px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes ext-pulse-glow {
+	0%,
+	100% {
+		box-shadow: 0 0 24px rgba(76, 175, 80, 0.2);
+	}
+	50% {
+		box-shadow: 0 0 44px rgba(76, 175, 80, 0.4);
+	}
+}
+
+/* Loading */
+.ext-loading {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 520px;
+}
+
+/* Auth page */
+.ext-auth-page {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	min-height: 520px;
+	animation: ext-scale-in 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.ext-auth-page .vkuiPlaceholder {
+	animation: none;
+}
+
+/* Header */
+.ext-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 6px 12px 8px 16px;
+	animation: ext-fade-in 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.ext-header__logo {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.ext-header__title {
+	font-weight: 600;
+	font-size: 20px;
+	flex: 1;
+	white-space: nowrap;
+}
+
+.ext-header__actions {
+	display: flex;
+	align-items: center;
+	gap: 2px;
+	min-width: 40px;
+}
+
+/* Toggle area */
+.ext-toggle-area {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 32px 16px 24px;
+	gap: 16px;
+	flex: 1;
+	animation: ext-scale-in 0.45s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.ext-toggle {
+	width: 120px;
+	height: 120px;
+	border-radius: 50%;
+	border: 3px solid var(--vkui--color_background_tertiary);
+	background: var(--vkui--color_background_secondary);
+	color: var(--vkui--color_text_secondary);
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition:
+		background 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+		border-color 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+		color 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+		box-shadow 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+		transform 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+	outline: none;
+	-webkit-tap-highlight-color: transparent;
+}
+
+.ext-toggle:hover {
+	border-color: var(--vkui--color_text_tertiary);
+}
+
+.ext-toggle:active {
+	transform: scale(0.93);
+}
+
+.ext-toggle--active {
+	background: rgba(76, 175, 80, 0.12);
+	border-color: #4caf50;
+	color: #4caf50;
+	box-shadow: 0 0 32px rgba(76, 175, 80, 0.25);
+	animation: ext-pulse-glow 3s ease-in-out infinite;
+}
+
+.ext-toggle--active:hover {
+	border-color: #66bb6a;
+}
+
+.ext-toggle--loading {
+	opacity: 0.7;
+	cursor: wait;
+}
+
+.ext-toggle:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+/* Toggle status */
+.ext-toggle-status {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 4px;
+}
+
+.ext-toggle-status__label {
+	font-weight: 600;
+	font-size: 20px;
+	color: var(--vkui--color_text_secondary);
+	transition: color 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.ext-toggle-status__label--active {
+	color: #4caf50;
+}
+
+.ext-toggle-status__location {
+	font-size: 13px;
+	color: var(--vkui--color_text_secondary);
+}
+
+/* Bottom card (config selector + actions) */
+.ext-bottom-card {
+	animation: ext-slide-up 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+	margin: auto 16px 16px;
+	border-radius: 14px;
+	background: var(--vkui--color_background_secondary);
+	overflow: hidden;
+}
+
+.ext-bottom-card__separator {
+	margin: 0 12px !important;
+}
+
+.ext-bottom-card__action {
+	min-height: 44px;
+}
+
+/* Config selector */
+.ext-config-selector {
+	padding: 14px 16px;
+	cursor: pointer;
+	transition: background 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+	-webkit-tap-highlight-color: transparent;
+}
+
+.ext-config-selector:hover {
+	background: var(--vkui--color_background_tertiary);
+}
+
+.ext-config-selector:active {
+	background: var(--vkui--color_background_tertiary);
+}
+
+.ext-config-selector__content {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.ext-config-selector__flag {
+	font-size: 28px;
+	line-height: 1;
+	flex-shrink: 0;
+}
+
+.ext-config-selector__info {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	flex: 1;
+	min-width: 0;
+}
+
+.ext-config-selector__name {
+	font-weight: 500;
+	font-size: 14px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.ext-config-selector__location {
+	font-size: 12px;
+	color: var(--vkui--color_text_secondary);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.ext-config-selector__text {
+	font-size: 14px;
+	flex: 1;
+}
+
+.ext-config-selector__chevron {
+	font-size: 20px;
+	color: var(--vkui--color_text_secondary);
+	flex-shrink: 0;
+}
+
+/* Main page layout */
+.ext-main {
+	display: flex;
+	flex-direction: column;
+	min-height: 520px;
+}
+
+/* Config select page */
+.ext-config-select {
+	min-height: 520px;
+	animation: ext-fade-in 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.ext-config-list {
+	padding: 0 8px 16px;
+}
+
+.ext-config-list__loading {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 48px 16px;
+}
+
+.ext-config-list__error {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 12px;
+	padding: 48px 16px;
+	color: var(--vkui--color_text_secondary);
+}
+
+.ext-config-list__empty {
+	text-align: center;
+	padding: 48px 16px;
+	color: var(--vkui--color_text_secondary);
+	font-size: 14px;
+}
+
+/* Config item */
+.ext-config-item {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 12px;
+	border-radius: 14px;
+	cursor: pointer;
+	transition: background 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform
+		0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+	-webkit-tap-highlight-color: transparent;
+}
+
+.ext-config-item:hover {
+	background: var(--vkui--color_background_secondary);
+}
+
+.ext-config-item:active {
+	transform: scale(0.98);
+}
+
+.ext-config-item--active {
+	background: rgba(76, 175, 80, 0.08);
+}
+
+.ext-config-item--active:hover {
+	background: rgba(76, 175, 80, 0.12);
+}
+
+.ext-config-item__flag {
+	font-size: 28px;
+	line-height: 1;
+	flex-shrink: 0;
+}
+
+.ext-config-item__info {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	flex: 1;
+	min-width: 0;
+}
+
+.ext-config-item__name {
+	font-weight: 500;
+	font-size: 14px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.ext-config-item__location {
+	font-size: 12px;
+	color: var(--vkui--color_text_secondary);
+}
+
+.ext-config-item__right {
+	display: flex;
+	align-items: center;
+	gap: 4px;
+	flex-shrink: 0;
+}
+
+.ext-config-item__ping {
+	font-size: 12px;
+	font-weight: 500;
+	white-space: nowrap;
+}
+
+/* Settings */
+.ext-settings {
+	min-height: 520px;
+	animation: ext-fade-in 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.ext-settings__content {
+	padding: 0 16px;
+}
+
+/* Settings — staggered children */
+.ext-settings__content > * {
+	animation: ext-slide-up 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.ext-settings__content > *:nth-child(1) {
+	animation-delay: 0.03s;
+}
+.ext-settings__content > *:nth-child(2) {
+	animation-delay: 0.08s;
+}
+.ext-settings__content > *:nth-child(3) {
+	animation-delay: 0.13s;
+}
+.ext-settings__content > *:nth-child(4) {
+	animation-delay: 0.18s;
+}
+.ext-settings__content > *:nth-child(5) {
+	animation-delay: 0.23s;
+}
+.ext-settings__content > *:nth-child(6) {
+	animation-delay: 0.28s;
+}
+.ext-settings__content > *:nth-child(n + 7) {
+	animation-delay: 0.32s;
+}
+
+.ext-settings__logout {
+	padding: 12px 0 0;
+}
+
+.ext-settings__section-header {
+	margin-top: 4px;
+}
+
+/* Location page */
+
+.ext-location-page__loading {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	padding: 16px;
+}
+
+/* Snackbar */
+.ext-snackbar .SnackbarContent-root {
+	border-radius: 14px;
+	font-size: 13px;
+}
+
+.ext-skeleton-list {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	padding: 16px;
+}
+
+/* Prevent scrollbar shift when Alert is shown */
+body:has(.vkuiPopoutWrapper) {
+	overflow: hidden;
+}
+
+/* PanelHeaderBack button rounding */
+.vkuiPanelHeaderBack .vkuiTappable {
+	border-radius: 50% !important;
+}
+
+.vkuiIconButton {
+	border-radius: 50% !important;
+}
+
+/* Page transition animations */
+.vkuiPanel {
+	animation: ext-fade-in 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.vkuiPanelHeaderButton {
+	border-radius: 8px !important;
+	overflow: hidden;
+}
+
+/* Configs grid */
+.ext-configs-grid {
+	margin: 5px 10px;
+	padding-bottom: 16px;
+}
+
+.ext-configs-grid__flag {
+	font-size: 24px;
+	line-height: 1;
+}
+
+/* Config grid — staggered card entry */
+.ext-configs-grid .vkuiSimpleGrid > * {
+	animation: ext-slide-up 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.ext-configs-grid .vkuiSimpleGrid > *:nth-child(1) {
+	animation-delay: 0.03s;
+}
+.ext-configs-grid .vkuiSimpleGrid > *:nth-child(2) {
+	animation-delay: 0.06s;
+}
+.ext-configs-grid .vkuiSimpleGrid > *:nth-child(3) {
+	animation-delay: 0.09s;
+}
+.ext-configs-grid .vkuiSimpleGrid > *:nth-child(4) {
+	animation-delay: 0.12s;
+}
+.ext-configs-grid .vkuiSimpleGrid > *:nth-child(5) {
+	animation-delay: 0.15s;
+}
+.ext-configs-grid .vkuiSimpleGrid > *:nth-child(n + 6) {
+	animation-delay: 0.18s;
+}
+
+.ext-configs-grid > .vkuiFooter {
+	animation: ext-fade-in 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+	animation-delay: 0.2s;
+}
+
+/* Active config card */
+.ext-config-card--active {
+	outline: 2px solid #4caf50;
+}
+
+/* Status text colors */
+.ext-text--positive {
+	color: var(--vkui--color_accent_green);
+}
+
+.ext-text--negative {
+	color: var(--vkui--color_icon_negative);
+}
+
+.ext-text--muted {
+	color: var(--vkui--color_text_tertiary);
+}
+
+.ext-text--warning {
+	color: var(--vkui--color_accent_orange);
+}
+
+/* Location page */
+.ext-location-page {
+	padding: 0 16px 16px;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+}
+
+/* Location page — staggered items */
+.ext-location-page > * {
+	animation: ext-slide-up 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.ext-location-page > *:nth-child(1) {
+	animation-delay: 0.03s;
+}
+.ext-location-page > *:nth-child(2) {
+	animation-delay: 0.08s;
+}
+.ext-location-page > *:nth-child(3) {
+	animation-delay: 0.13s;
+}
+.ext-location-page > *:nth-child(4) {
+	animation-delay: 0.18s;
+}
+.ext-location-page > *:nth-child(n + 5) {
+	animation-delay: 0.23s;
+}
+
+.ext-location-page__item {
+	padding: 0;
+}
+
+.ext-location-page__form-item {
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+	padding-top: 4px !important;
+	padding-bottom: 0 !important;
+}
+
+.ext-location-page__checkbox-card {
+	padding: 0 10px;
+}
+/* IP badge */
+.ext-ip-badge {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	margin-top: 4px;
+	padding: 4px 12px;
+	border-radius: 20px;
+	background: var(--vkui--color_background_secondary);
+	font-size: 13px;
+	min-height: 24px;
+	white-space: nowrap;
+	animation: ext-fade-in 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.ext-ip-badge__flag {
+	font-size: 13px;
+	line-height: 1;
+	display: flex;
+	align-items: center;
+}
+
+.ext-ip-badge__ip {
+	font-weight: 500;
+	color: var(--vkui--color_text_primary);
+	font-variant-numeric: tabular-nums;
+}
+
+.ext-ip-badge--clickable {
+	cursor: pointer;
+	transition: background 0.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.ext-ip-badge--clickable:hover {
+	background: var(--vkui--color_background_tertiary);
+}
+
+.ext-ip-badge--clickable:active {
+	opacity: 0.7;
+}
+
+.ext-ip-badge--loading {
+	color: var(--vkui--color_text_secondary);
+}
+
+.ext-ip-badge--loading .ext-ip-badge__ip {
+	color: var(--vkui--color_text_secondary);
+	font-weight: 400;
+}
+
+.ext-ip-badge--failed {
+	color: var(--vkui--color_text_tertiary);
+}
+
+.ext-ip-badge--failed .ext-ip-badge__ip {
+	color: var(--vkui--color_text_tertiary);
+	font-weight: 400;
+}
+
+/* Split tunnel settings */
+.ext-split-tunnel__mode {
+	padding: 12px 16px 0;
+}
+
+.ext-split-tunnel__hint {
+	margin-top: 10px !important;
+	margin-bottom: -10px !important;
+	padding-top: 0 !important;
+}
+
+.ext-split-tunnel__input-row {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 10px 12px;
+}
+
+.ext-split-tunnel__input-row .vkuiInput {
+	flex: 1;
+	min-width: 0;
+}
+
+.ext-split-tunnel__input-row .vkuiButton {
+	flex-shrink: 0;
+}
+
+.ext-split-tunnel__domain-list {
+	max-height: 200px;
+	overflow-y: auto;
+}
+
+.ext-split-tunnel__domain-row {
+	display: flex;
+	align-items: center;
+	padding: 8px 12px;
+	gap: 8px;
+	border-top: 1px solid var(--vkui--color_separator_primary);
+}
+
+.ext-split-tunnel__domain-text {
+	flex: 1;
+	min-width: 0;
+	padding-left: 4px;
+	font-size: 15px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.ext-split-tunnel__empty {
+	padding: 12px 16px;
+	text-align: center;
+	color: var(--vkui--color_text_secondary);
+	font-size: 13px;
+	border-top: 1px solid var(--vkui--color_separator_primary);
+}
+
+/* Header actions group */
+.ext-header__actions {
+	display: flex;
+	align-items: center;
+	gap: 2px;
+}
+
+/* Update banner */
+.ext-update-banner {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	margin: 0 16px 8px;
+	padding: 10px 16px;
+	border-radius: 12px;
+	background: var(--vkui--color_background_positive);
+	color: #fff;
+	cursor: pointer;
+	transition: opacity 0.2s;
+	animation: ext-fade-in 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+	font-size: 13px;
+	font-weight: 500;
+}
+
+.ext-update-banner:hover {
+	opacity: 0.85;
+}
+
+.ext-update-banner:active {
+	opacity: 0.7;
+}
+
+.ext-update-banner__text {
+	flex: 1;
+}
+
+.ext-update-banner__arrow {
+	opacity: 0.7;
+	font-size: 20px;
+}
+
+.ext-change-location-banner__arrow {
+	padding-right: 4px;
+}
