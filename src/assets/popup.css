@@ -255,8 +255,8 @@ body {
 }
 
 .ext-config-selector__flag {
-	font-size: 28px;
-	line-height: 1;
+	display: flex;
+	align-items: center;
 	flex-shrink: 0;
 }
 
@@ -365,8 +365,8 @@ body {
 }
 
 .ext-config-item__flag {
-	font-size: 28px;
-	line-height: 1;
+	display: flex;
+	align-items: center;
 	flex-shrink: 0;
 }
 
@@ -503,8 +503,8 @@ body:has(.vkuiPopoutWrapper) {
 }
 
 .ext-configs-grid__flag {
-	font-size: 24px;
-	line-height: 1;
+	display: flex;
+	align-items: center;
 }
 
 /* Config grid — staggered card entry */
@@ -617,8 +617,6 @@ body:has(.vkuiPopoutWrapper) {
 }
 
 .ext-ip-badge__flag {
-	font-size: 13px;
-	line-height: 1;
 	display: flex;
 	align-items: center;
 }

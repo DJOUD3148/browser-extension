@@ -14,7 +14,7 @@ import {
 import React, { useEffect, useRef } from "react";
 import { useRecoilState } from "recoil";
 import { STORAGE_KEYS } from "../../shared/constants";
-import countryCodeToEmoji from "../../shared/countryFlag";
+import CountryFlag from "../../shared/countryFlag.jsx";
 import getPingLabel from "../../shared/getPingLabel";
 import localizeDate from "../../shared/localizeDate";
 import { measureBest } from "../../shared/ping";
@@ -161,7 +161,7 @@ const ConfigSelectPage = ({ locations, loading, error, reload, onBack }) => {
 										<SimpleCell
 											before={
 												<span className="ext-configs-grid__flag">
-													{countryCodeToEmoji(loc?.code)}
+													<CountryFlag code={loc?.code} size={24} />
 												</span>
 											}
 											subtitle={

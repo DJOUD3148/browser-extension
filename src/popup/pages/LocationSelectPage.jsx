@@ -21,7 +21,7 @@ import React, {
 import { useRecoilState, useRecoilValue } from "recoil";
 import { changeLocation } from "../../api/routes/route.configs";
 import { updatePaidOptionConfigSettings } from "../../api/routes/route.paid-options";
-import countryCodeToEmoji from "../../shared/countryFlag";
+import CountryFlag from "../../shared/countryFlag.jsx";
 import { measureBest } from "../../shared/ping";
 import useProxyConnection from "../hooks/useProxyConnection";
 import useSnackbarHandler from "../hooks/useSnackbarHandler";
@@ -284,7 +284,7 @@ const LocationSelectPage = ({ config, onBack }) => {
 											)
 										}
 									>
-										{countryCodeToEmoji(option.code)} {option.label}
+										<CountryFlag code={option.code} size={20} /> {option.label}
 									</CustomSelectOption>
 								);
 							}}

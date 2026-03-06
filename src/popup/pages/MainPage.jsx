@@ -8,7 +8,7 @@ import { IconButton, Separator, SimpleCell, Spinner } from "@vkontakte/vkui";
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { useRecoilState } from "recoil";
 import { MSG, sendMessage, toBadgeCode } from "../../shared/constants";
-import countryCodeToEmoji from "../../shared/countryFlag";
+import CountryFlag from "../../shared/countryFlag.jsx";
 import getPingLabel from "../../shared/getPingLabel";
 import localizeDate from "../../shared/localizeDate";
 import { measureBest } from "../../shared/ping";
@@ -331,7 +331,7 @@ const MainPage = ({
 							}
 						>
 							<span className="ext-ip-badge__flag">
-								{countryCodeToEmoji(externalIp.countryCode)}
+								<CountryFlag code={externalIp.countryCode} size={14} />
 							</span>
 							<span className="ext-ip-badge__ip">{externalIp.ip}</span>
 						</div>
@@ -361,7 +361,7 @@ const MainPage = ({
 					) : displayConfig ? (
 						<div className="ext-config-selector__content">
 							<span className="ext-config-selector__flag">
-								{countryCodeToEmoji(displayLocation?.code)}
+								<CountryFlag code={displayLocation?.code} size={28} />
 							</span>
 							<div className="ext-config-selector__info">
 								<span className="ext-config-selector__name">
