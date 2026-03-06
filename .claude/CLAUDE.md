@@ -8,9 +8,11 @@ For full documentation, see [AGENTS.md](../../AGENTS.md) in the project root.
 npm install              # Install dependencies
 npm run dev:chrome       # Watch mode (Chrome)
 npm run dev:firefox      # Watch mode (Firefox)
-npm run build:chrome     # Production build (Chrome)
-npm run build:firefox    # Production build (Firefox)
-npm run build:all        # Build both platforms
+npm run build:chrome          # Production build (Chrome)
+npm run build:firefox         # Production build (Firefox, AMO)
+npm run build:firefox:github  # Production build (Firefox, GitHub)
+npm run build:all             # Build both platforms (AMO)
+npm run build:all:github      # Build both platforms (GitHub)
 npm run format           # Biome formatter
 npm run lint             # Biome linter
 npm run release          # Full release (build + package)

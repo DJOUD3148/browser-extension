@@ -10,7 +10,7 @@ All communication uses `chrome.runtime.sendMessage`. Background validates `sende
 const response = await chrome.runtime.sendMessage({
   type: MSG.PROXY_CONNECT,
   credentials: { host, port, user, pass, protocol },
-  configMeta: { id, title, source, locationCode },
+  configMeta: { id, title, source, locationId, locationTitle, locationCode, optionId, serverId },
 })
 ```
 
@@ -56,7 +56,7 @@ Uses PAC script for split tunneling (HTTP only, no SOCKS5 auth support):
 chrome.proxy.settings.set({
   value: {
     mode: "pac_script",
-    pacScript: { data: buildPacScript(host, port, internalHosts, mode, domains, protocol) },
+    pacScript: { data: buildPacScript(host, port, internalHosts, mode, domains) },
   },
   scope: "regular",
 })
@@ -130,7 +130,7 @@ All persistent state in `chrome.storage.local`:
 | `access_token` | `{ token, expires_at }` |
 | `refresh_token` | `{ token, expires_at }` |
 | `proxy_state` | `{ connected, host, port, user, pass, protocol }` |
-| `connected_config` | `{ id, title, source, locationId, locationCode }` |
+| `connected_config` | `{ id, title, source, locationId, locationTitle, locationCode, optionId?, serverId? }` |
 | `proxy_all_traffic` | Boolean — bypass internal hosts |
 | `split_tunnel_mode` | `"exclude"` or `"include"` |
 | `split_tunnel_domains` | `string[]` |
@@ -140,6 +140,7 @@ All persistent state in `chrome.storage.local`:
 | `update_check_cache` | `{ timestamp, result }` |
 | `oauth_code_verifier` | PKCE code_verifier (Firefox, temporary) |
 | `oauth_redirect_uri` | OAuth redirect URI (Firefox, temporary) |
+| `selected_config` | Last selected config `{ id, source }` (popup state persistence) |
 
 ## Popup State
 
@@ -161,4 +162,4 @@ activePage: "main" | "configSelect" | "locationSelect" | "settings" | "splitTunn
 - 30-minute cache TTL (key: `STORAGE_KEYS.UPDATE_CHECK_CACHE`)
 - MainPage shows update banner with download link
 
-Firefox also has native auto-update via `update_url` in manifest → `updates.json` in repo.
+Firefox GitHub builds (`manifest.firefox.github.json`) have `update_url` pointing to `updates.json` for native auto-update. AMO builds do not include `update_url`.

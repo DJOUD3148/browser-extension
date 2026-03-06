@@ -70,7 +70,7 @@ Fetches and normalizes data from three sources into a flat list:
 ```javascript
 {
   id, title, source: "config" | "paid_option" | "cloud",
-  locationId, locationRealId, locationTitle, protocol,
+  locationId, locationRealId, locationTitle, locationCode, protocol,
   hasProxy: boolean, proxyUrl: string | null,
   expiresAt, isOnline,
   optionId?, serverId?

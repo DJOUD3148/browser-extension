@@ -8,8 +8,10 @@
 | `npm run dev:chrome` | Watch mode for Chrome |
 | `npm run dev:firefox` | Watch mode for Firefox |
 | `npm run build:chrome` | Build for Chrome → `dist/chrome/` |
-| `npm run build:firefox` | Build for Firefox → `dist/firefox/` |
-| `npm run build:all` | Build both platforms |
+| `npm run build:firefox` | Build for Firefox (AMO) → `dist/firefox/` |
+| `npm run build:firefox:github` | Build for Firefox (GitHub, with `update_url`) → `dist/firefox/` |
+| `npm run build:all` | Build both platforms (AMO) |
+| `npm run build:all:github` | Build both platforms (GitHub) |
 | `npm run format` | Run Biome formatter |
 | `npm run lint` | Run Biome linter |
 | `npm run release` | Full release: build + package |
@@ -26,7 +28,7 @@ Each `build:*` script runs Vite build, then copies static files:
 VITE_TARGET=chrome vite build
 cp manifest/manifest.chrome.json dist/chrome/manifest.json
 cp -r src/assets/icons dist/chrome/
-cp src/callback/callback.html dist/chrome/
+cp src/callback/callback.html src/callback/callback.js dist/chrome/
 ```
 
 ## When to Run Build
@@ -55,7 +57,8 @@ Key settings:
 ## Manifests
 
 - `manifest/manifest.chrome.json` — Chrome Manifest V3 (service_worker)
-- `manifest/manifest.firefox.json` — Firefox Manifest V2 (background scripts, `update_url`)
+- `manifest/manifest.firefox.json` — Firefox Manifest V2 (AMO, no `update_url`)
+- `manifest/manifest.firefox.github.json` — Firefox Manifest V2 (GitHub, with `update_url`)
 
 Key permissions: `proxy`, `storage`, `webRequest`, `webRequestAuthProvider` (Chrome), `webRequestBlocking` (Firefox), `alarms`, `management`.
 

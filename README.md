@@ -117,7 +117,7 @@ For installs outside Chrome Web Store / Firefox AMO:
 - Checks [GitHub Releases](https://github.com/stealthsurf-vpn/browser-extension/releases) for newer versions
 - Requires `management` permission to detect install type
 - Shows an update banner on the main page
-- Firefox also supports auto-update via `update_url` in manifest
+- Firefox GitHub builds also support native auto-update via `update_url` in `manifest.firefox.github.json`
 
 ### Authentication (PKCE)
 
@@ -145,7 +145,8 @@ For installs outside Chrome Web Store / Firefox AMO:
 extension/
 ├── manifest/
 │   ├── manifest.chrome.json         # Chrome Manifest V3
-│   └── manifest.firefox.json        # Firefox Manifest V2
+│   ├── manifest.firefox.json        # Firefox Manifest V2 (AMO)
+│   └── manifest.firefox.github.json # Firefox Manifest V2 (GitHub, with update_url)
 ├── src/
 │   ├── background/                  # Service worker
 │   │   ├── index.js                 # Entry point (ensureInit + message listener)

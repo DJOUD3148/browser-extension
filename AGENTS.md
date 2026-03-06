@@ -26,7 +26,8 @@ Cross-browser extension (Chrome MV3, Firefox MV2) for connecting to proxies via 
 extension/
 ├── manifest/
 │   ├── manifest.chrome.json         # Chrome Manifest V3
-│   └── manifest.firefox.json        # Firefox Manifest V2
+│   ├── manifest.firefox.json        # Firefox Manifest V2 (AMO)
+│   └── manifest.firefox.github.json # Firefox Manifest V2 (GitHub, with update_url)
 ├── src/
 │   ├── background/
 │   │   ├── index.js                 # Entry: ensureInit + message listener
@@ -57,7 +58,8 @@ extension/
 │   │       ├── atoms.js             # extensionAtom, proxyAtom, resourcesAtom, pingsAtom
 │   │       └── selectors.js         # Read/write selectors
 │   ├── callback/
-│   │   └── callback.html            # OAuth callback — Firefox code capture
+│   │   ├── callback.html            # OAuth callback page — Firefox code capture
+│   │   └── callback.js              # OAuth callback script — extracts code, sends to background
 │   ├── api/
 │   │   ├── api.instance.js          # Axios with chrome.storage.local tokens
 │   │   └── routes/
@@ -136,7 +138,7 @@ Manages proxy connections and auth tokens. Persists state in `chrome.storage.loc
 
 **Chrome PAC script** (`proxyChrome.js`):
 
-- `buildPacScript(host, port, internalHosts, mode, domains, protocol)` generates `FindProxyForURL`
+- `buildPacScript(host, port, internalHosts, mode, domains)` generates `FindProxyForURL`
 - Internal hosts (API/console) always go DIRECT
 - `exclude` mode: listed domains go DIRECT
 - `include` mode: only listed domains go through proxy
@@ -233,7 +235,7 @@ Via XHR to `location.ping_ip` (`shared/ping.js`):
 
 MainPage shows update banner when a new version is available.
 
-Firefox also has `update_url` in manifest pointing to `updates.json` for native auto-update.
+Firefox GitHub builds (`manifest.firefox.github.json`) have `update_url` pointing to `updates.json` for native auto-update. AMO builds (`manifest.firefox.json`) do not include `update_url`.
 
 ### Auth Flow (PKCE)
 
@@ -268,10 +270,12 @@ Firefox also has `update_url` in manifest pointing to `updates.json` for native 
 ```bash
 npm install
 npm run format
-npm run build:chrome     # → dist/chrome/
-npm run build:firefox    # → dist/firefox/
-npm run build:all        # Both platforms
-npm run release          # Build + package (ZIP, CRX, XPI)
+npm run build:chrome          # → dist/chrome/
+npm run build:firefox         # → dist/firefox/ (AMO variant)
+npm run build:firefox:github  # → dist/firefox/ (GitHub variant, with update_url)
+npm run build:all             # Both platforms (AMO)
+npm run build:all:github      # Both platforms (GitHub)
+npm run release               # Build + package (ZIP, CRX, XPI)
 ```
 
 ## State Persistence
@@ -283,7 +287,7 @@ All persistent state in `chrome.storage.local`:
 | `access_token` | `{ token, expires_at }` |
 | `refresh_token` | `{ token, expires_at }` |
 | `proxy_state` | `{ connected, host, port, user, pass, protocol }` |
-| `connected_config` | `{ id, title, source, locationId, locationCode }` |
+| `connected_config` | `{ id, title, source, locationId, locationTitle, locationCode, optionId?, serverId? }` |
 | `proxy_all_traffic` | Boolean — bypass internal hosts |
 | `split_tunnel_mode` | `"exclude"` or `"include"` |
 | `split_tunnel_domains` | `string[]` of domain patterns |
@@ -293,3 +297,4 @@ All persistent state in `chrome.storage.local`:
 | `proxy_protocol` | `"socks5"` or `"http"` (Firefox preference) |
 | `oauth_code_verifier` | PKCE code_verifier (Firefox, temporary) |
 | `oauth_redirect_uri` | OAuth redirect URI (Firefox, temporary) |
+| `selected_config` | Last selected config `{ id, source }` (popup state persistence) |
