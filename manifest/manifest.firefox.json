@@ -2,7 +2,7 @@
 	"manifest_version": 2,
 	"name": "StealthSurf VPN",
 	"short_name": "StealthSurf",
-	"version": "1.0.4",
+	"version": "1.0.5",
 	"description": "Браузерное расширение для пользователей сервиса. Подключайтесь к своим конфигам прямо из браузера — без лишних настроек.",
 	"author": "StealthSurf VPN",
 	"homepage_url": "https://stealthsurf.app",
@@ -30,14 +30,15 @@
 	},
 	"background": {
 		"scripts": ["background.js"],
-		"type": "module",
 		"persistent": true
 	},
 	"browser_specific_settings": {
 		"gecko": {
-			"id": "admin@stealthsurf.app",
-			"strict_min_version": "91.0",
-			"update_url": "https://raw.githubusercontent.com/stealthsurf-vpn/browser-extension/main/updates.json"
+			"id": "extension@stealthsurf.app",
+			"strict_min_version": "91.1.0",
+			"data_collection_permissions": {
+				"required": ["none"]
+			}
 		}
 	},
 	"icons": {

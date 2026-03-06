@@ -1,6 +1,6 @@
 {
 	"name": "stealthsurf-extension",
-	"version": "1.0.4",
+	"version": "1.0.5",
 	"description": "StealthSurf browser extension — HTTP proxy for Chrome and Firefox. Use your proxies, split tunneling, and more without installing VPN.",
 	"author": {
 		"name": "StealthSurf VPN",
@@ -33,13 +33,15 @@
 		"dev:firefox": "VITE_TARGET=firefox vite build --watch",
 		"build:chrome": "VITE_TARGET=chrome vite build && cp manifest/manifest.chrome.json dist/chrome/manifest.json && cp -r src/assets/icons dist/chrome/ && cp src/callback/callback.html src/callback/callback.js dist/chrome/",
 		"build:firefox": "VITE_TARGET=firefox vite build && cp manifest/manifest.firefox.json dist/firefox/manifest.json && cp -r src/assets/icons dist/firefox/ && cp src/callback/callback.html src/callback/callback.js dist/firefox/",
+		"build:firefox:github": "VITE_TARGET=firefox vite build && cp manifest/manifest.firefox.github.json dist/firefox/manifest.json && cp -r src/assets/icons dist/firefox/ && cp src/callback/callback.html src/callback/callback.js dist/firefox/",
 		"build:all": "npm run build:chrome && npm run build:firefox",
+		"build:all:github": "npm run build:chrome && npm run build:firefox:github",
 		"format": "biome format --write .",
 		"lint": "biome lint .",
 		"pack:zip": "node scripts/pack.mjs zip",
 		"pack:crx": "node scripts/pack.mjs crx",
 		"pack:all": "node scripts/pack.mjs all",
-		"release": "npm run build:all && npm run pack:all",
+		"release": "rm -rf release && npm run build:all:github && npm run pack:all",
 		"pack:xpi": "node scripts/pack.mjs xpi"
 	},
 	"dependencies": {
